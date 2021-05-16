@@ -1,8 +1,8 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'app_service.dart';
-import 'package:renlite/rendering.dart';
 import 'package:renlite/foundation.dart';
+import 'package:renlite_objects/rendering.dart';
 
 class Detail extends RenderProxyBox {
   Detail(RenliteService service) {
