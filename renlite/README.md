@@ -1,4 +1,4 @@
-## [Renlite](https://github.com/renlite/flutter/blob/master/renlite/README.md)
+## Renlite
 is the try to develope a Flutter app only on the RenderObjectTree.
 
 ### Entry Point
