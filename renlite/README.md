@@ -18,11 +18,11 @@ class RenderingFlutterBinding extends BindingBase with GestureBinding, Scheduler
 ```
 In the constructor you already can define the root node of your UI tree, which must be a subclass of [`AbstractNode > RenderObject > RenderBox`](https://api.flutter.dev/flutter/rendering/RenderBox-class.html). There are a lot of implementers of [`AbstractNode > RenderObject > RenderBox`](https://api.flutter.dev/flutter/rendering/RenderBox-class.html). If you compare the different names beginning with Render* you will see that a lot of Widgets - not beeing only composition Widgets - have a corresponding RenderObject doing the layout and painting.
 The superclass of BindingBase ist called implicitly when the incstance of RenderingFlutterBinding is created. 
-´´´Dart
+```Dart
 BindingBase() {
     /// ...
     initInstances();
     /// ...
-  }
-`´´
+}
+```
  
