@@ -42,5 +42,5 @@ mixin RendererBinding on BindingBase, ServicesBinding, SchedulerBinding, Gesture
   }
 
 ```
-
+The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBinding-mixin.html) is the connection between the RenderObjectTree and the Flutter engine.
  
