@@ -38,11 +38,30 @@ mixin RendererBinding on BindingBase, ServicesBinding, SchedulerBinding, Gesture
       ..onSemanticsEnabledChanged = _handleSemanticsEnabledChanged
       ..onSemanticsAction = _handleSemanticsAction;
     initRenderView();
-    //...
+    ...
   }
 
 ```
-The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBinding-mixin.html) is the connection between the RenderObjectTree and the Flutter engine. The initialization of [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) and of [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is here of interest. 
-* [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) manages the rendering pipeline and the [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that are visible on the screen. [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) for example refreshes [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) marked as dirty. Every [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is part of a render tree managed bei the [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) holds a reference in the property `owner → PipelineOwner?`. Only an attached [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) is visible on the screen.
+The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBinding-mixin.html) is the connection between the RenderObjectTree and the Flutter engine. The initialization of [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) and of [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is here of interest. After creation of the [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) a [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is initialized and assigned to the `_pipelineOwner.rootNode = value;` through the setter of `RenderView`.
+```Dart
+  /// Creates a [RenderView] object to be the root of the
+  /// [RenderObject] rendering tree, and initializes it so that it
+  /// will be rendered when the next frame is requested.
+  void initRenderView() {
+    ...
+    renderView = RenderView(configuration: createViewConfiguration(), window: window);
+    renderView.prepareInitialFrame();
+  }
+  ...
+  /// The render tree that's attached to the output surface.
+  RenderView get renderView => _pipelineOwner.rootNode! as RenderView;
+  /// Sets the given [RenderView] object (which must not be null), and its tree, to
+  /// be the new render tree to display. The previous tree, if any, is detached.
+  set renderView(RenderView value) {
+    assert(value != null);
+    _pipelineOwner.rootNode = value;
+  }
+```
+* [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) manages the rendering pipeline and the [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that are visible on the screen. [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) for example maintains dirty states of [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) for layout, composition and painting. Every [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is part of a render tree managed by the [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) holds a reference in the property `owner → PipelineOwner?`. Only an attached [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) is visible on the screen.
 * [AbstractNode > RenderObject > RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is the root of the RenderObjectTree and handles bootstrapping of the render tree. It takes the entire size of a screen. 
  
