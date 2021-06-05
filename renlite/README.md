@@ -64,4 +64,16 @@ The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBi
 ```
 * [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) manages the rendering pipeline and the [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that are visible on the screen. [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) for example maintains dirty states of [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) for layout, composition and painting. Every [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is attached to a render tree managed by the [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) holds a reference in the property `owner → PipelineOwner?`.  That means an attached [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) can access the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) instance, e.g. `final renderView = myRenderBox.owner.rootNode;`.
 * [AbstractNode > RenderObject > RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a special subclass of [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html). It is the root of the RenderObjectTree and handles bootstrapping of the render tree. It takes the entire size of a screen. 
- 
+
+### Composition
+When does composition happen or when is a RenderObject attached to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
+```Dart
+void main() {
+  var app = AppService();
+  RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(
+      root: RenderStack(
+          children: [MasterService(app: app), Detail(app)],
+          textDirection: TextDirection.ltr));
+  flutterBinding.drawFrame();
+}
+```
