@@ -79,7 +79,8 @@ void main() {
 ```
 Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
 
-The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderStack and the setter of RenderView is called. In the child's setter the  adoptChild(_child)` is invoked which is implemeented in the AbstractNode  
+The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderStack and the child setter of RenderView is called. Then `adoptChild(_child)` is invoked which is implemeented in the AbstractNode.
+
 ```Dart
 class AbstractNode {
   // ...
@@ -94,7 +95,7 @@ class AbstractNode {
   }
 }
 ```
-Here the RenderView is assigned to be the child's parent and the `child.attach(_owner)` method (defined in RenderObjectWithChildMixin) is called, where the `super.attach(owner);` of RenderObject and also `super.attach(owner);` of the AbstractNode is called. In AbstractNode's attach method the PipelineOwner is set to the child's owner property and the RenderObject's attach method marks the child as dirty.  After all if the child (RenderStack) itself has a child, the 
+Here the RenderView is assigned to be the child's parent and the `child.attach(_owner)` method (defined in RenderObjectWithChildMixin) is called, where the `super.attach(owner);` of RenderObject and also `super.attach(owner);` of the AbstractNode is called. In AbstractNode's attach method the PipelineOwner is finaly set to the child's owner property and the RenderObject's attach method marks the child as dirty. After all if the child (RenderDecoratedBox) itself has a child (RenderSizedOverflowBox), the RenderSizedOverflowBox' attach method will be called (recursively) and so on till a leaf RenderObject has no child. 
 
 ```Dart
 class AbstractNode {
