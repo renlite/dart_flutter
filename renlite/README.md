@@ -77,3 +77,6 @@ void main() {
   flutterBinding.drawFrame();
 }
 ```
+Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
+
+The RenderView kicks off the walk down the RenderTree
