@@ -79,4 +79,27 @@ void main() {
 ```
 Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
 
-The RenderView kicks off the walk down the RenderTree
+The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderStack and the setter of RenderView is called. In the child's setter the  adoptChild(_child)` of the AbstractNode is invoked in the RenderObject. 
+```Dart
+   @protected
+  @mustCallSuper
+  void adoptChild(covariant AbstractNode child) {
+    child._parent = this;
+    if (attached)
+      child.attach(_owner!);
+    redepthChild(child);
+  }
+```
+Here the RenderView is assigned to be the child's parent and the `child.attach(_owner)` method (defined in RenderObjectWithChildMixin) is called, where the `super.attach(owner);` of RenderObject is called, which also calls  `super.attach(owner);` of the AbstractNode. In the AbstractNode's attach method the PipelineOwner is set to the child's owner property and the RenderObject's attach method marks the child as dirty.  After all if the child (RenderStack) itself has a child, the 
+
+```Dart
+mixin RenderObjectWithChildMixin<ChildType extends RenderObject> on RenderObject {
+  // ...
+  @override
+  void attach(PipelineOwner owner) {
+    super.attach(owner);
+    if (_child != null)
+      _child!.attach(owner);
+  }
+}
+```
