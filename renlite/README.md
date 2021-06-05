@@ -79,20 +79,65 @@ void main() {
 ```
 Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
 
-The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderStack and the setter of RenderView is called. In the child's setter the  adoptChild(_child)` of the AbstractNode is invoked in the RenderObject. 
+The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderStack and the setter of RenderView is called. In the child's setter the  adoptChild(_child)` is invoked which is implemeented in the AbstractNode  
 ```Dart
-   @protected
+class AbstractNode {
+  // ...
+  @protected
   @mustCallSuper
   void adoptChild(covariant AbstractNode child) {
+    // ...
     child._parent = this;
     if (attached)
       child.attach(_owner!);
     redepthChild(child);
   }
+}
 ```
-Here the RenderView is assigned to be the child's parent and the `child.attach(_owner)` method (defined in RenderObjectWithChildMixin) is called, where the `super.attach(owner);` of RenderObject is called, which also calls  `super.attach(owner);` of the AbstractNode. In the AbstractNode's attach method the PipelineOwner is set to the child's owner property and the RenderObject's attach method marks the child as dirty.  After all if the child (RenderStack) itself has a child, the 
+Here the RenderView is assigned to be the child's parent and the `child.attach(_owner)` method (defined in RenderObjectWithChildMixin) is called, where the `super.attach(owner);` of RenderObject and also `super.attach(owner);` of the AbstractNode is called. In AbstractNode's attach method the PipelineOwner is set to the child's owner property and the RenderObject's attach method marks the child as dirty.  After all if the child (RenderStack) itself has a child, the 
 
 ```Dart
+class AbstractNode {
+  // ...
+  @mustCallSuper
+  void attach(covariant Object owner) {
+    //..
+    _owner = owner;
+  }
+}
+
+abstract class RenderObject extends AbstractNode with DiagnosticableTreeMixin implements HitTestTarget {
+  //..
+  @override
+  void attach(PipelineOwner owner) {
+    super.attach(owner);
+    // If the node was dirtied in some way while unattached, make sure to add
+    // it to the appropriate dirty list now that an owner is available
+    if (_needsLayout && _relayoutBoundary != null) {
+      // Don't enter this block if we've never laid out at all;
+      // scheduleInitialLayout() will handle it
+      _needsLayout = false;
+      markNeedsLayout();
+    }
+    if (_needsCompositingBitsUpdate) {
+      _needsCompositingBitsUpdate = false;
+      markNeedsCompositingBitsUpdate();
+    }
+    if (_needsPaint && _layer != null) {
+      // Don't enter this block if we've never painted at all;
+      // scheduleInitialPaint() will handle it
+      _needsPaint = false;
+      markNeedsPaint();
+    }
+    if (_needsSemanticsUpdate && _semanticsConfiguration.isSemanticBoundary) {
+      // Don't enter this block if we've never updated semantics at all;
+      // scheduleInitialSemantics() will handle it
+      _needsSemanticsUpdate = false;
+      markNeedsSemanticsUpdate();
+    }
+  }
+}
+  
 mixin RenderObjectWithChildMixin<ChildType extends RenderObject> on RenderObject {
   // ...
   @override
