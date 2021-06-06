@@ -70,7 +70,7 @@ There is no difference between composition of Widgets and RenderObjects. Dart of
 
 With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI objects and style the UI on screen. There are three main types of RenderObjects: Leaf, Container with one child or more children. The following table shows samples of the association between RenderObjects and the Widgets. E.g. RawImage creates RenderImage in the `RenderImage createRenderObject(BuildContext context) {...}` method and uses RenderImage to show an image on screen.  
 
-| RenderObject        | with Mixin                            | children  | related Widget*  | extends                       |
+| RenderObject        | with Mixin                            | children  | related Widget   | extends                       |
 | --------------------|---------------------------------------| ----------|------------------|-------------------------------|
 | RenderImage         |                                       | null      | RawImage         | LeafRenderObjectWidget        |
 | RenderDecoratedBox  | RenderObjectWithChildMixin            | 0..1      | DecoratedBox     | SingleChildRenderObjectWidget |
