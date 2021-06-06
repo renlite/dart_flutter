@@ -66,6 +66,11 @@ The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBi
 * [AbstractNode > RenderObject > RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a special subclass of [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html). It is the root of the RenderObjectTree and handles bootstrapping of the render tree. It takes the entire size of a screen. 
 
 ### Composition
+There is no difference between composition of Widgets and RenderObjects. Dart offers the possibility to make composition of RenderObjects declarativly, so we can design the view and write the logic in one programming language.
+
+With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI Components or how the UI looks like.
+
+### RenderTree building
 When does composition happen or when is a RenderObject attached to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
 ```Dart
 void main() {
