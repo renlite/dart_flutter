@@ -68,7 +68,13 @@ The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBi
 ### Composition
 There is no difference between composition of Widgets and RenderObjects. Dart offers the possibility to make composition of RenderObjects declarativly, so we can design the view and write the logic in one programming language.
 
-With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI Components or how the UI looks like.
+With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI objects or how the UI looks like. There are three types of RenderObjects: Leaf, Container with one child or more children. The following table shows samples of the association between RenderObjects and the Widgets. E.g. RawImage creates RenderImage in the `RenderImage createRenderObject(BuildContext context) {...}` method and uses RenderImage to show an image on screen.  
+
+| RenderObject        | with Mixin                            | children  | related Widget*  | extends                       |
+| --------------------|---------------------------------------| ----------|------------------|-------------------------------|
+| RenderImage         |                                       | null      | RawImage         | LeafRenderObjectWidget        |
+| RenderDecoratedBox  | RenderObjectWithChildMixin            | 0..1      | DecoratedBox     | SingleChildRenderObjectWidget |
+| RenderFlex          | ContainerRenderObjectMixin            | 0..n      | Flex             | MultiChildRenderObjectWidget  |
 
 ### RenderTree building
 When does composition happen or when is a RenderObject attached to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
