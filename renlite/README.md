@@ -78,7 +78,7 @@ With composition of Dart objects (Widgets, RenderObjects) we can create reuseabl
 
 The composition happens during the instantiation of RenderObjects, but the building of the RenderTree occurs later. This is important because some objects/information are available only after the RenderTree is built.
 
-### RenderTree building
+### RenderTree
 When is the composition transfered to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
 ```Dart
 void main() {
