@@ -65,20 +65,19 @@ The [RendererBinding mixin](https://api.flutter.dev/flutter/rendering/RendererBi
 * [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) manages the rendering pipeline and the [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that are visible on the screen. [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) for example maintains dirty states of [RenderObjects](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) for layout, composition and painting. Every [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is attached to a render tree managed by the [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) holds a reference in the property `owner → PipelineOwner?`.  That means an attached [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) can access the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) instance, e.g. `final renderView = myRenderBox.owner.rootNode;`.
 * [AbstractNode > RenderObject > RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a special subclass of [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html). It is the root of the RenderObjectTree and handles bootstrapping of the render tree. It takes the entire size of a screen. 
 
-### Composition RemderTree
-There is no difference between composition of Widgets and RenderObjects. Dart offers the possibility to make composition of RenderObjects declarativly, so we can design the view and write the logic in one programming language.
+### RemderTree Composition
+There is no difference between composition of Widgets and RenderObjects. Dart offers the possibility to make composition of RenderObjects declarativly, so we can define the RenderTree and write the logic in one programming language.
 
-With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI objects and style the UI on screen. There are three main types of RenderObjects: Leaf, Container with one child or more children. The following table shows samples of the association between RenderObjects and the Widgets. E.g. RawImage creates RenderImage in the `RenderImage createRenderObject(BuildContext context) {...}` method and uses RenderImage to show an image on screen.  
+With composition of Dart objects (Widgets, RenderObjects) we can create reuseable UI objects and design the UI for the screen. There are three main types of RenderObjects: Leaf, Container with one child or Container with more children. The following table shows samples of the association between RenderObjects and the Widgets. E.g. RawImage creates RenderImage in the `RenderImage createRenderObject(BuildContext context) {...}` method and uses RenderImage to show an image on screen.  
 
 | RenderObject        | with Mixin                            | children  | related Widget   | extends                       |
 | --------------------|---------------------------------------| ----------|------------------|-------------------------------|
 | RenderImage         |                                       | null      | RawImage         | LeafRenderObjectWidget        |
 | RenderDecoratedBox  | RenderObjectWithChildMixin            | 0..1      | DecoratedBox     | SingleChildRenderObjectWidget |
 | RenderFlex          | ContainerRenderObjectMixin            | 0..n      | Flex             | MultiChildRenderObjectWidget  |
+The composition happens during the instantiation (constructor, setter for child property) of RenderObjects, but the attachment of a single RenderObject or a RenderTree to a PipelineOwner occurs later and only, if the parent RenderObject we expand is attached already. This is important because during composition there is no access to the instance of the PipelineOwner.   
 
-The composition happens during the instantiation of RenderObjects, but the attachment to an Owner  RenderTree occurs later. This is important because some objects/information are available only after the RenderTree is built.
-
-### Attachment RenderTree
+### RenderTree Attachment
 When is a RenderObject or a composition of RenderObjects transfered to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
 ```Dart
 void main() {
@@ -109,7 +108,7 @@ class AbstractNode {
   void adoptChild(covariant AbstractNode child) {
     // ...
     child._parent = this;
-    if (attached) // !!! ONLY, if the parent and the root of the RenderTree is attached too.
+    if (attached)            // *** ONLY, if the parent ... the root of the RenderTree is attached too!!! ***
       child.attach(_owner!);
     redepthChild(child);
   }
