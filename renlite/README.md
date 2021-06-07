@@ -76,7 +76,27 @@ With composition of Dart objects (Widgets, RenderObjects) we can create reuseabl
 | [RenderDecoratedBox](https://api.flutter.dev/flutter/rendering/RenderDecoratedBox-class.html)  | [RenderObjectWithChildMixin](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html)            | 0..1      | [DecoratedBox](https://api.flutter.dev/flutter/widgets/DecoratedBox-class.html)     | [SingleChildRenderObjectWidget](https://api.flutter.dev/flutter/widgets/SingleChildRenderObjectWidget-class.html) |
 | [RenderFlex](https://api.flutter.dev/flutter/rendering/RenderFlex-class.html)          | [ContainerRenderObjectMixin](https://api.flutter.dev/flutter/rendering/ContainerRenderObjectMixin-mixin.html)            | 0..n      | [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html)             | [MultiChildRenderObjectWidget](https://api.flutter.dev/flutter/widgets/MultiChildRenderObjectWidget-class.html)  |
 
-The composition happens during the instantiation (constructor, setter for child property) of RenderObjects, but the attachment of a single RenderObject or a RenderTree to a PipelineOwner occurs later and only, if the parent RenderObject we expand is attached already. This is important because during composition there is no access to the instance of the PipelineOwner.   
+The composition happens during the instantiation (constructor and setter of the child property) of RenderObjects, but the attachment of a single RenderObject or a RenderTree to a [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) occurs later and only, if the parent [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) we expand is attached already. This is important because during composition there is no access to the instance of the PipelineOwner.
+
+Composition 'Hello World!'
+```Dart
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart' show Colors;
+
+void main() {
+  RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(
+      root: RenderFlex(mainAxisAlignment: MainAxisAlignment.center, children: [
+    RenderParagraph(
+        TextSpan(
+          text: 'Hello World!',
+          style: TextStyle(color: Colors.purple, fontSize: 25.0),
+        ),
+        textDirection: TextDirection.ltr)
+  ]));
+  flutterBinding.drawFrame();
+}
+```
 
 ### RenderTree Attachment
 When is a RenderObject or a composition of RenderObjects transfered to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
