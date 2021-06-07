@@ -99,7 +99,7 @@ void main() {
 ```
 
 ### RenderTree Attachment
-When is a RenderObject or a composition of RenderObjects transfered to a RenderTree? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html). This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
+When is a RenderObject or a composition of RenderObjects attached? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) or to another [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is already attached. This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
 ```Dart
 void main() {
   var app = AppService();
