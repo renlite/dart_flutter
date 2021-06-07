@@ -73,8 +73,8 @@ With composition of Dart objects (Widgets, RenderObjects) we can create reuseabl
 | RenderObject        | with Mixin                            | children  | related Widget   | extends                       |
 | --------------------|---------------------------------------| ----------|------------------|-------------------------------|
 | [RenderImage](https://api.flutter.dev/flutter/rendering/RenderImage-class.html)         |                                       | null      | RawImage         | LeafRenderObjectWidget        |
-| RenderDecoratedBox  | RenderObjectWithChildMixin            | 0..1      | DecoratedBox     | SingleChildRenderObjectWidget |
-| RenderFlex          | ContainerRenderObjectMixin            | 0..n      | Flex             | MultiChildRenderObjectWidget  |
+| [RenderDecoratedBox](https://api.flutter.dev/flutter/rendering/RenderDecoratedBox-class.html)  | [RenderObjectWithChildMixin](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html)            | 0..1      | DecoratedBox     | SingleChildRenderObjectWidget |
+| [RenderFlex](https://api.flutter.dev/flutter/rendering/RenderFlex-class.html)          | [ContainerRenderObjectMixin](https://api.flutter.dev/flutter/rendering/ContainerRenderObjectMixin-mixin.html)            | 0..n      | Flex             | MultiChildRenderObjectWidget  |
 
 The composition happens during the instantiation (constructor, setter for child property) of RenderObjects, but the attachment of a single RenderObject or a RenderTree to a PipelineOwner occurs later and only, if the parent RenderObject we expand is attached already. This is important because during composition there is no access to the instance of the PipelineOwner.   
 
