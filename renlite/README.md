@@ -129,7 +129,7 @@ class AbstractNode {
   void adoptChild(covariant AbstractNode child) {
     // ...
     child._parent = this;
-    if (attached)            // *** ONLY, if the parent ... the root of the RenderTree is attached too!!! ***
+    if (attached)            // *** ONLY, if the parent (and so it's parent -> up to the root) of the RenderTree is attached too!!! ***
       child.attach(_owner!);
     redepthChild(child);
   }
