@@ -78,7 +78,7 @@ With composition of Dart objects (Widgets, RenderObjects) we can create reuseabl
 
 The composition happens during the instantiation (constructor and setter of the child property) of RenderObjects, but the attachment of a single RenderObject or a RenderTree to a [PipelineOwner](https://api.flutter.dev/flutter/rendering/PipelineOwner-class.html) occurs later and only, if the parent [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) we expand is attached already. This is important because during composition there is no access to the instance of the PipelineOwner.
 
-Composition and working example 'Hello World!' (14 LOC):
+[Composition and working example 'Hello World!' (14 LOC):](https://github.com/renlite/flutter/tree/master/render_sample_hello)
 ```Dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
