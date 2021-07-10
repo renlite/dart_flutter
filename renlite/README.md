@@ -236,4 +236,4 @@ var renderParagraph = renliteTransform.child;`.
 ```
 
 ###  Interaction
-RenderObject offers the method [`@override void handleEvent(PointerEvent event, covariant HitTestEntry entry)`](https://api.flutter.dev/flutter/rendering/RenderObject/handleEvent.html), so you can react to diverse user actions. In service.dart a `typedef TabCallback = ...` is included for a simpler implementation. 
+RenderObject offers the method [`@override void handleEvent(PointerEvent event, covariant HitTestEntry entry)`](https://api.flutter.dev/flutter/rendering/RenderObject/handleEvent.html), so you can react to diverse user actions. In service.dart a `typedef TabCallback = ...` is included for a simpler implementation. An example of onTab is available in [renlite_sample_page](https://github.com/renlite/flutter/tree/master/renlite_sample_page).
