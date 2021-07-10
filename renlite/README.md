@@ -231,6 +231,9 @@ You can even use RenliteObjects and RenderObjects together for composition of a 
 // ...  
 RenliteTransform renliteTransform =
           renliteTree.getRenderObject("Transform") as RenliteTransform;
-var rendPara = renliteTransform.child;`.
+var renderParagraph = renliteTransform.child;`.
 //...
 ```
+
+###  Interaction
+RenderObject offers the method [`@override void handleEvent(PointerEvent event, covariant HitTestEntry entry)`](https://api.flutter.dev/flutter/rendering/RenderObject/handleEvent.html), so we can simply react to diverse user action.
