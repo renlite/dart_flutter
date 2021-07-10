@@ -230,7 +230,7 @@ You can even use RenliteObjects and RenderObjects together for composition of a 
 // e.g.
 // ...  
 RenliteTransform renliteTransform =
-          this.tree?.getRenderObject("Transform") as RenliteTransform;
+          renliteTree.getRenderObject("Transform") as RenliteTransform;
 var rendPara = renliteTransform.child;`.
 //...
 ```
