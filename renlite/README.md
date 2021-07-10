@@ -206,8 +206,8 @@ mixin RenderObjectWithChildMixin<ChildType extends RenderObject> on RenderObject
 That means you can create more RenderTrees by composition but only that one that is appended to the RenderView or to a child of the RenderView is attached and painted to the screen. When a root RenderObject of a RenderTree is appended to another RenderObject that is already attached the attach method of all RenderObjects of the RenderTree is called. On the other side when a attached RenderObject is removed (child = null;) from parent's child the dettach method is called for the removed RenderObject and all their childs. For example there are tree RenderTrees Page_A, Page_B and Page_C. We could prepare all tree Pages by composition and assign only Page_A to the RenderView. Page_A will be rendered. Later on an user action we change the assigntment from Page_A to Page_B. All members of Page_A will be detached and all memebers of Page_B will be attached. Page_B will be showed. If we still hold a reference to the root RednerObject of Page_A the RenderTree of Page_A is available for later attechment without the need to (re)create new RenderObjects. The programmer can decide how to manage (re)creation of Dart objects and memory. In a typical Flutter app this is automatically managed by the framework in the ElementTree. Direct handling of RenderTree offers more control.
 
 ### Key of RenderObject
-Unfortunatelly it is not simply possible to find a special RenderObject in the RenderTree by a key like in the HTML-DOM e.g. to chnage the RenderObject or simply to change the color property. This is not necessery for Widget based apps because the rebuilding of a view is done by the ElementTree. An Element holds the positon of a Widget in the RenderTree and is responsible for the complicated diffing between Widgets. Theoretically it is possible to find a special RenderObject by walking up or down the RenderTree but this is not efficient and in most cases not recomended.
-Amongst others Renlite brings the missing Key to RenderObjects with a very small framework 'service.dart'. RenliteKeyMixin uses the attach method to register a key to an attached RenderObject. A very lightweight wrapper over a RenderObject using the ReliteKeyMixin makes it possible to find ther UI object later. For a better understanding and distinction I use the name convention Renlite* instead of Render*, e.g. RenliteParagraph (RenderParagraph), RenliteTransform (RenderTransform) or RenliteSimpleButton (Composition of more RenderObjects ).  
+Unfortunatelly it is not simply possible to find a special RenderObject in the RenderTree by a Key like in the HTML-DOM e.g. to chnage the RenderObject or simply to change the color property. This is not necessery for Widget based apps because the rebuilding of a view is done by the ElementTree. An Element holds the positon of a Widget in the RenderTree and is responsible for the complicated diffing between Widgets. Theoretically it is possible to find a special RenderObject by walking up or down the RenderTree but this is not efficient and in most cases not recomended.
+Amongst others Renlite brings the missing Key to RenderObjects with a very small framework 'service.dart'. RenliteKeyMixin uses the attach method to register a Key to an attached RenderObject. A very lightweight wrapper over a RenderObject using the ReliteKeyMixin makes it possible to find ther UI object later. For a better understanding and distinction I use the name convention Renlite* instead of Render*, e.g. RenliteParagraph (RenderParagraph), RenliteTransform (RenderTransform) or RenliteSimpleButton (Composition of more RenderObjects ).  
 ```Dart
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
@@ -225,4 +225,12 @@ class RenliteParagraph extends RenderParagraph with RenliteKeyMixin {
   }
 }
 ```
-You can even use RenliteObjects and RenderObjects together for composition of a RederTree, but only RenliteObjects can be find directly because of its Key. Sometimes it is not neccssary to create or use a RenliteObject, if the RenderObject (e.g. RenderParagraph) will never change or a RenderObject is the next child of a RenliteObject, so you can go down with `var rendPara = renliteDecoBox.child;`.
+You can even use RenliteObjects and RenderObjects together for composition of a RederTree, but only RenliteObjects can be find directly because of its Key. Sometimes it is not neccssary to create or use a RenliteObject, if the RenderObject (e.g. RenderParagraph) will never change or a RenderObject is the next child of a RenliteObject, so you can go down with:
+```Dart
+// e.g.
+// ...  
+RenliteTransform renliteTransform =
+          this.tree?.getRenderObject("Transform") as RenliteTransform;
+var rendPara = renliteTransform.child;`.
+//...
+```
