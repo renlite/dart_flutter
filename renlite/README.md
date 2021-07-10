@@ -207,5 +207,21 @@ That means you can create more RenderTrees by composition but only that one that
 
 ### Key of RenderObject
 Unfortunatelly it is not simply possible to find a special RenderObject in the RenderTree by a key like in the HTML-DOM e.g. to chnage the RenderObject or simply to change the color property. This is not necessery for Widget based apps because the rebuilding of a view is done by the ElementTree. An Element holds the positon of a Widget in the RenderTree and is responsible for the complicated diffing between Widgets. Theoretically it is possible to find a special RenderObject by walking up or down the RenderTree but this is not efficient and in most cases not recomended.
-Amongst others Renlit brings the missing Key to RenderObjects with a very small framework 'service.dart'. RenliteKeyMixin uses the attach method to registera a key to an attached RenderObject. The only one thing you have to do is to write a lightweigt wrapper for a RenderObject or to use ReliteKeyMixin for a composition. For a better understanding and distinction i use the name Renlite* instead Render*. For example RenliteParagraph (RenderParagraph), RenliteTransform (RenderTransform) or RenliteSimpleButton (Composition).  
+Amongst others Renlite brings the missing Key to RenderObjects with a very small framework 'service.dart'. RenliteKeyMixin uses the attach method to register a key to an attached RenderObject. A very lightweight wrapper over a RenderObject using the ReliteKeyMixin makes it possible to find ther UI object directly. For a better understanding and distinction I use the name convention Renlite* instead of Render*, e.g. RenliteParagraph (RenderParagraph), RenliteTransform (RenderTransform) or RenliteSimpleButton (Composition of more RenderObjects ).  
+```Dart
+import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
+import 'package:renlite/foundation.dart';
 
+class RenliteParagraph extends RenderParagraph with RenliteKeyMixin {
+  RenliteParagraph({required String text, String? key, Color? color})
+      : super(
+            TextSpan(
+              text: text,
+              style: TextStyle(color: color ?? Colors.black, fontSize: 25.0),
+            ),
+            textDirection: TextDirection.ltr) {
+    this.key = key;
+  }
+}
+```
