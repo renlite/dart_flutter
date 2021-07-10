@@ -225,4 +225,4 @@ class RenliteParagraph extends RenderParagraph with RenliteKeyMixin {
   }
 }
 ```
-You can even use RenliteObjects and RenderObjects together for composition of a RederTree, but only RenliteObjects can be find directly because of its Key. Sometimes it is not neccssary to create or use a RenliteObject, if the RenderObject (e.g. RenderParagraph) will never change or a RenderObject is the next child of a RenliteObject, so you can go down with `renliteDecoBox.child;`.
+You can even use RenliteObjects and RenderObjects together for composition of a RederTree, but only RenliteObjects can be find directly because of its Key. Sometimes it is not neccssary to create or use a RenliteObject, if the RenderObject (e.g. RenderParagraph) will never change or a RenderObject is the next child of a RenliteObject, so you can go down with `var rendPara = renliteDecoBox.child;`.
