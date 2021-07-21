@@ -1,4 +1,4 @@
-## Proof of Concept: [Renlite](https://github.com/renlite/flutter/blob/master/renlite/README.md) - [Flutter](https://flutter.dev/) light
+## Proof of Concept: [Renlite](https://github.com/renlite/flutter/blob/master/renlite/README.md) - [Flutter](https://flutter.dev/) little lighter
 
 ### [Flutter](https://flutter.dev/) is different: layout
 https://hackernoon.com/whats-revolutionary-about-flutter-946915b09514
