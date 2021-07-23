@@ -14,7 +14,7 @@ class Detail extends RenderProxyBox {
             decoration: BoxDecoration(color: Colors.deepPurple),
             onTab: app.onTab,
             child: RenderSizedOverflowBox(
-                requestedSize: Size(300.0, 300.0),
+                requestedSize: Size(400.0, 400.0),
                 child: RenderParagraph(
                     TextSpan(
                         text: "Goto Master",
