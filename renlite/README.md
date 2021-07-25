@@ -112,7 +112,7 @@ void main() {
 ```
 Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
 
-The [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) kicks off the walk down the RenderTree. As [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is set to [RenderDecoratedBox](https://api.flutter.dev/flutter/rendering/RenderDecoratedBox-class.html) and the child setter of RenderView is called. Then `adoptChild(_child)` is invoked which is implemeented in the [AbstractNode](https://api.flutter.dev/flutter/foundation/AbstractNode-class.html).
+The [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) kicks off the walk down the RenderTree. As [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is set to [RenderDecoratedBox](https://api.flutter.dev/flutter/rendering/RenderDecoratedBox-class.html) and the child setter of RenderView is called. Then `adoptChild(_child)` is invoked which is implemented in the [AbstractNode](https://api.flutter.dev/flutter/foundation/AbstractNode-class.html).
 
 ```Dart
 class AbstractNode {
@@ -149,7 +149,7 @@ abstract class RenderObject extends AbstractNode with DiagnosticableTreeMixin im
   }
 }
 ```
-Here the RenderView is assigned to be the child's parent and `child.attach(_owner!);` method (defined in RenderObjectWithChildMixin) is called, where `super.attach(owner);` of RenderObject and also `super.attach(owner);` of AbstractNode is invoked. In AbstractNode's attach method the PipelineOwner is finaly set to the child's (RenderDecoratedBox) `_owner` property and the RenderObject's attach method marks the child as dirty. After all if the child (RenderDecoratedBox) itself has a child (RenderSizedOverflowBox), the RenderSizedOverflowBox' attach method will be called and so on till a leaf RenderObject has no child. 
+Here the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is assigned to be the child's parent and `child.attach(_owner!);` method (defined in [RenderObjectWithChildMixin](https://api.flutter.dev/flutter/rendering/RenderBox-class.html)) is called, where `super.attach(owner);` of RenderObject and also `super.attach(owner);` of AbstractNode is invoked. In AbstractNode's attach method the PipelineOwner is finaly set to the child's (RenderDecoratedBox) `_owner` property and the RenderObject's attach method marks the child as dirty. After all if the child (RenderDecoratedBox) itself has a child (RenderSizedOverflowBox), the RenderSizedOverflowBox' attach method will be called and so on till a leaf RenderObject has no child. 
 
 ```Dart
 class AbstractNode {
