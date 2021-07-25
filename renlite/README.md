@@ -99,7 +99,7 @@ void main() {
 ```
 
 ### RenderTree Attachment
-When is a RenderObject or a composition of RenderObjects attached? This happens the first time when a RenderObject or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) or to another [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is already attached. This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
+When is a [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) or a composition of RenderObjects attached? This happens the first time when a [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) or a Tree of RenderObjects is assigned to the [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) or to another [RenderObject](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) that is already attached. This can be when the instance of RenderingFlutterBinding is created and the root parameter is assigned.
 ```Dart
 void main() {
   var app = AppService();
@@ -112,7 +112,7 @@ void main() {
 ```
 Code from [renlite_sample_page] https://github.com/renlite/flutter/tree/master/renlite_sample_page.
 
-The RenderView kicks off the walk down the RenderTree. As RenderView is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of RenderView is set to RenderDecoratedBox and the child setter of RenderView is called. Then `adoptChild(_child)` is invoked which is implemeented in the AbstractNode.
+The [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) kicks off the walk down the RenderTree. As [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is a container RenderObject which can hold one child, it has a mixed in type [RenderObjectWithChildMixin<RenderBox>](https://api.flutter.dev/flutter/rendering/RenderObjectWithChildMixin-mixin.html). Whith the assignement `RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(root: RenderStack( ...` the child of [RenderView](https://api.flutter.dev/flutter/rendering/RenderView-class.html) is set to [RenderDecoratedBox](https://api.flutter.dev/flutter/rendering/RenderDecoratedBox-class.html) and the child setter of RenderView is called. Then `adoptChild(_child)` is invoked which is implemeented in the [AbstractNode](https://api.flutter.dev/flutter/foundation/AbstractNode-class.html).
 
 ```Dart
 class AbstractNode {
