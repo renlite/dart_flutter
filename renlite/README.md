@@ -1,5 +1,5 @@
 ## Renlite
-is the try to develope a [Flutter](https://flutter.dev/) app only on the RenderObjectTree.
+is the try to develope a [Flutter](https://flutter.dev/) app only on the RenderTree (=RenderObjectTree).
 
 ### Entry Point
 Following the boot process of a Flutter Widget based app `void main() => runApp(MyApp());` I found out that at some point the class [`RenderingFlutterBinding`](https://api.flutter.dev/flutter/rendering/RenderingFlutterBinding-class.html) was used to define the RenderObjectTree.
