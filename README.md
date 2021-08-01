@@ -7,7 +7,7 @@ Flutter and it's rendering with the new box layout model brings performance gain
 
 Instead Flutter's [`AbstractNode > RenderObject > RenderBox`](https://api.flutter.dev/flutter/rendering/RenderBox-class.html) doesn't include all possible layouts but expresses the simple box layout in form of a [`BoxConstraints`](https://api.flutter.dev/flutter/rendering/BoxConstraints-class.html) object, passing it down the tree. A child [`RenderObject`](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) must respect the size (frame) passed by the parent [`RenderObject`](https://api.flutter.dev/flutter/rendering/RenderObject-class.html) and so on. Beside [`RenderBox`](https://api.flutter.dev/flutter/rendering/RenderBox-class.html) representing the box layout there is a second layout protocol in Flutter currently: [`RenderSliver`](https://api.flutter.dev/flutter/rendering/RenderSliver-class.html), which is the base class for the RenderObjects that implement scrollable UI objects like List or Table.
 
-https://proandroiddev.com/understanding-flutter-layout-box-constraints-292cc0d5e807
+Article about box contraints and layout: https://proandroiddev.com/understanding-flutter-layout-box-constraints-292cc0d5e807
 
 ![box_constraints](https://github.com/renlite/dart_flutter/blob/master/flutter_box_layout.png)
 
