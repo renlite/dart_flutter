@@ -11,7 +11,6 @@ https://proandroiddev.com/understanding-flutter-layout-box-constraints-292cc0d5e
 
 ![box_constraints](https://github.com/renlite/dart_flutter/blob/master/flutter_box_layout.png)
 
-
 ### [Flutter](https://flutter.dev/) is different: building process
 https://flutter.dev/docs/resources/architectural-overview#build-from-widget-to-element
 
