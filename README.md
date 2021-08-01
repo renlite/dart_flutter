@@ -31,7 +31,7 @@ Trees.png Source: https://flutter.dev/docs/resources/architectural-overview#buil
 The picture of the build process shows three layers with a lot of repetition of UI objects. At the end of the day the configuration and logic of the WidgetTree and the ElementTree lands in the RenderTree to layout and paint the ideas of a programmer.
 
 If you
-* don't like the syntax of two classes for state management StatefulWidgets
+* don't like the syntax of two classes for state management of StatefulWidgets
   ```dart
   class YellowBird extends StatefulWidget {
     const YellowBird({ Key? key }) : super(key: key);
