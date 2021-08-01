@@ -9,7 +9,7 @@ Instead Flutter's [`AbstractNode > RenderObject > RenderBox`](https://api.flutte
 
 https://proandroiddev.com/understanding-flutter-layout-box-constraints-292cc0d5e807
 
-![box_constraints](https://miro.medium.com/max/500/1*Bz2AIkXQV1qWki4RiqLg_w.png)
+![box_constraints](https://github.com/renlite/dart_flutter/blob/master/flutter_box_layout.png)
 
 
 ### [Flutter](https://flutter.dev/) is different: building process
