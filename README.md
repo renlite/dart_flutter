@@ -52,6 +52,6 @@ If you
 * like to reduce size and complexity
 * still want to benefit from the declarativ style [Dart's](https://dart.dev/) [named parameters](https://dart.dev/guides/language/language-tour#parameters) offer
 
-than Renlite is an attempt to use only the RenderObjectTree to write Flutter apps in a more lightweight way.
+than Renlite is an attempt to use only the RenderTree to write Flutter apps in a more lightweight way.
 
 [Continue reading ...](https://github.com/renlite/flutter/blob/master/renlite/README.md)
