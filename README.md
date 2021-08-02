@@ -14,7 +14,7 @@ Article about box contraints and layout: https://proandroiddev.com/understanding
 ### [Flutter](https://flutter.dev/) is different: building process
 https://flutter.dev/docs/resources/architectural-overview#build-from-widget-to-element
 
-Different UI frameworks use different main names for an UI object (Container, Button, Textfield, List, ...) that is part of a render tree. Common names for UI objects are: Components, Elements, Nodes, Controls, Widgets or RenderObjects. But wait, in Flutter there are Widgets, Elements and RenderObjekts.
+Different UI frameworks use different main names for an UI object (Container, Button, Textfield, List, ...) that is part of a render tree. Common names for UI objects are: Components, Elements, Nodes, Controls, Widgets or RenderObjects. But wait, in Flutter there are Widgets, Elements and RenderObjects.
 
 Flutter's layout and rendering is based on following trees: WidgetTree, ElementTree, RenderTree
 
