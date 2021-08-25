@@ -18,7 +18,7 @@ Different UI frameworks use different main names for an UI object (Container, Bu
 
 Flutter's layout and rendering is based on following trees: WidgetTree, ElementTree, RenderTree
 
-![image](https://flutter.dev/images/arch-overview/trees.png)
+
 Trees.png Source: https://flutter.dev/docs/resources/architectural-overview#build-from-widget-to-element
 
 * WidgetTree: is the declarative description of a screen in [`Dart`](https://dart.dev/) and could be compared with a HTML page or a XML view in other UI frameworks. [`Widget`](https://api.flutter.dev/flutter/widgets/Widget-class.html) is the blueprint or configuration of a corresponding [`Element`](https://api.flutter.dev/flutter/widgets/Element-class.html). Widgets are immutable (final). At the first time and when something changes the build method of all [`Widgets`](https://api.flutter.dev/flutter/widgets/Widget-class.html) is called and the [`Widgets`](https://api.flutter.dev/flutter/widgets/Widget-class.html) used in the Widget(Sub)Tree are (new) recreated and the old instances are deleted by the garbage collector.
