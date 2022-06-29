@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart' show Colors;
+
 
 void main() {
   RenderingFlutterBinding flutterBinding = RenderingFlutterBinding(
@@ -12,5 +12,6 @@ void main() {
         ),
         textDirection: TextDirection.ltr)
   ]));
-  flutterBinding.drawFrame();
+  flutterBinding.allowFirstFrame();
+  flutterBinding.deferFirstFrame();
 }
