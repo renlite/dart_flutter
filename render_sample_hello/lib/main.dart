@@ -12,6 +12,7 @@ void main() {
         ),
         textDirection: TextDirection.ltr)
   ]));
+  
   flutterBinding.allowFirstFrame();
   flutterBinding.deferFirstFrame();
 }
